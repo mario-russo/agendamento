@@ -1,0 +1,441 @@
+# ============================================
+# IDE e Editores
+# ============================================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+*.tmp
+*.bak
+
+# VS Code
+.vscode/
+*.code-workspace
+.vscode-test/
+
+# NetBeans
+nbproject/
+nb-configuration.xml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# Frontend - Vue 3 / Quasar / Node
+# ============================================
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Quasar
+.quasar/
+.quasar-cache/
+quasar.config.*.js
+quasar.config.*.ts
+!quasar.config.js
+!quasar.config.ts
+
+# Build outputs
+dist/
+dist-ssr/
+dist-electron/
+*.tsbuildinfo
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Electron
+src-electron/
+
+# Vue
+*.log
+*.lock
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+coverage/
+.nyc_output/
+.grunt/
+node_modules/
+jspm_packages/
+build/Release/
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Backend - Quarkus / Java
+# ============================================
+
+# Maven build output
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Quarkus native
+*-runner
+*-runner.jar
+*-runner.zip
+*.native
+*.exe
+quarkus-app/
+quarkus-build/
+quarkus-dev/
+
+# Quarkus specific
+.quarkus/
+quarkus-*.log
+application.properties.local
+application-*.properties.local
+
+# Gradle (se usar)
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# JVM
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.hs_err_pid*
+
+# ============================================
+# Docker
+# ============================================
+
+# Docker volumes
+.docker/
+docker-compose.override.yml
+docker-compose.*.override.yml
+
+# Container images
+*.tar
+*.tar.gz
+
+# ============================================
+# System
+# ============================================
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs
+logs/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Cache
+.cache/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ============================================
+# Secrets and Sensitive Files
+# ============================================
+
+# Local secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+secrets/
+secrets/
+
+# Docker secrets
+.docker/
+docker-secrets/
+docker-compose.secrets.yml
+
+# Credentials
+.credentials/
+.aws/
+.gcloud/
+.azure/
+
+# ============================================
+# Build Tools
+# ============================================
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle
+gradlew
+gradlew.bat
+
+# ============================================
+# Coverage & Reports
+# ============================================
+
+coverage/
+.nyc_output/
+test-report/
+jacoco.exec
+*.report
+*.html
+
+# ============================================
+# Miscellaneous
+# ============================================
+
+# Tags
+tags
+TAGS
+.ctags
+
+# Swap files
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.orig
+*.old
+
+# ============================================
+# Project Specific
+# ============================================
+
+# Common shared DTOs build
+common/target/
+common/.classpath
+common/.project
+
+# Services
+services/*/target/
+services/*/.quarkus/
+services/*/quarkus-app/
+services/*/quarkus-build/
+services/*/.env
+
+# Frontend specific
+frontend/.quasar/
+frontend/dist/
+frontend/node_modules/
+
+# Infrastructure
+infrastructure/.env
+infrastructure/*.log
+infrastructure/secrets/
+
+# Data volumes (PostgreSQL, Redis, etc.)
+data/
+volumes/
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ============================================
+# CI/CD
+# ============================================
+
+.github/
+.gitlab/
+.azure/
+.circleci/
+.drone.yml
+.gitlab-ci.yml
+.travis.yml
+.jenkins/
+.teamcity/
+
+# ============================================
+# Generated Documentation
+# ============================================
+
+# Javadoc
+javadoc/
+apidocs/
+docs/api/
+
+# ============================================
+# Package Managers
+# ============================================
+
+# NPM
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Maven
+.m2/
+settings.xml
+repository/
+
+# ============================================
+# Temporary Development Files
+# ============================================
+
+# Test files
+*.test.js
+*.spec.js
+*.test.ts
+*.spec.ts
+*.test.java
+*.Test.java
+
+# Debug files
+*.log
+*.tmp
+*.pid
+*.seed
+*.pid.lock
+
+# ============================================
+# IDE Project Files
+# ============================================
+
+# Project files (not recommended)
+*.project
+*.classpath
+*.settings/
+*.factorypath
+
+# ============================================
+# Dependencies
+# ============================================
+
+# Java dependencies
+lib/
+libs/
+jars/
+
+# Node dependencies
+node_modules/
+jspm_packages/
+
+# ============================================
+# Runtime Data
+# ============================================
+
+# Application data
+data/
+temp/
+uploads/
+downloads/
+storage/
+
+# Database dumps
+*.dump
+*.sql
+*.backup
+*.pgdump
+
+# ============================================
+# Security
+# ============================================
+
+# Encryption keys
+*.key
+*.pem
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+
+# Sensitive configuration
+application-*.properties
+application-*.yml
+!application-dev.properties
+!application-dev.yml
+!application-test.properties
+!application-test.yml
+!application-example.properties
+!application-example.yml
+
+# ============================================
+# Docker Compose overrides
+# ============================================
+
+docker-compose.override.yml
+docker-compose.prod.yml
+docker-compose.dev.yml
+!docker-compose.yml
+
+# ============================================
+# Microservices specific
+# ============================================
+
+# Service specific logs
+services/*/logs/
+services/*/data/
+services/*/temp/
+services/*/target/
+services/*/quarkus-app/
+services/*/quarkus-build/
+services/*/.quarkus/
+services/*/.env
+services/*/application-*.properties
+
+# API Gateway specific
+services/api-gateway/target/
+services/api-gateway/.quarkus/
+
+# Service Booking specific
+services/service-booking/target/
+services/service-booking/.quarkus/
+
+# Service Client specific
+services/service-client/target/
+services/service-client/.quarkus/
+
+# Service Notification specific
+services/service-notification/target/
+services/service-notification/.quarkus/

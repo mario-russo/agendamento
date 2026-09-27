@@ -22,11 +22,11 @@ public class LoginService implements LoginUseCase {
         Usuario usuario = usuarioRepository.buscaPorEmail(email);
 
         if (usuario == null) {
-            throw new UsuarioNotFound("Usuário não encontrado",400);
+            throw new UsuarioNotFound("Usuário não encontrado");
         }
 
         if (!usuario.getPassword().equals(password)) {
-             throw new UsuarioNotFound("Usuário não encontrado", 400);
+             throw new UsuarioNotFound("Usuário não encontrado");
         }
 
 

@@ -1,13 +1,13 @@
 package br.com.mariorusso.tenancy.application.ports.out;
 
-import br.com.mariorusso.tenancy.application.dtos.request.FuncionarioRequestDto;
 import br.com.mariorusso.tenancy.domain.Funcionario;
+import br.com.mariorusso.tenancy.domain.Pagina;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface FuncionarioRepository {
-    Funcionario buscaPorId(Long id);
-    List<Funcionario> buscaPorEmpresa(Long empresaId);
-    void  cadastra(Funcionario funcionario);
+    Optional<Funcionario> buscaPorId(Long id);
+    void  cadastrar(Funcionario funcionario);
     void atualizar(Funcionario funcionario);
+    Pagina<Funcionario> buscaPorEmpresaPorPagina(Long empresaId, int pagina, int tamanho);
 }

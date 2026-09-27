@@ -8,7 +8,7 @@ import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
 import br.com.mariorusso.tenancy.application.usecase.AtualizaFuncionarioImpl;
 import br.com.mariorusso.tenancy.application.usecase.BuscaFuncionarioImpl;
 import br.com.mariorusso.tenancy.application.usecase.DesativarFuncionarioImpl;
-import br.com.mariorusso.tenancy.application.usecase.SalvaFuncionarioIpml;
+import br.com.mariorusso.tenancy.application.usecase.SalvaFuncionarioImpl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -29,7 +29,7 @@ public class FuncionarioConfig {
     @Produces
     @ApplicationScoped
     public SalvaFuncionarioUseCase salvaFuncionario (){
-        return  new SalvaFuncionarioIpml(repository);
+        return  new SalvaFuncionarioImpl(repository);
     }
 
     @Produces

@@ -22,7 +22,7 @@ public class DesativarFuncionarioImpl implements DesativarFuncionarioUsecase {
     public void desativar(Long id, Long empresaId) {
 
         Funcionario funcionario = funcionarioRepository.buscaPorId(id)
-                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário Não encontrado"));
+                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário não encontrado"));
 
         if (!funcionario.getEmpresaId().equals(empresaId))
             throw new FuncionarioDeOutraEmpresaException("Funcionário não pertence a empresa");

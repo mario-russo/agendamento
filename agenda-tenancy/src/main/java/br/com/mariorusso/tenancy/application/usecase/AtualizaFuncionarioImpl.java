@@ -20,7 +20,7 @@ public class AtualizaFuncionarioImpl implements AtualizaFuncionarioUseCase {
     @Transactional
     public void atualizar(Long id, Long empresaId, String nome, String telefone) {
         Funcionario funcionario = funcionarioRepository.buscaPorId(id)
-                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário Não encontrado"));
+                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário não encontrado"));
 
         if (!funcionario.getEmpresaId().equals(empresaId)) {
             throw new FuncionarioDeOutraEmpresaException("Funcionário não pertence à empresa");

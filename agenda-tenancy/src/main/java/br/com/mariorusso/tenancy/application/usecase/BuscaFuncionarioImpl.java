@@ -3,9 +3,9 @@ package br.com.mariorusso.tenancy.application.usecase;
 import br.com.mariorusso.tenancy.application.ports.in.BuscaFuncionarioUseCase;
 import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
 import br.com.mariorusso.tenancy.domain.Funcionario;
-import jakarta.ws.rs.NotFoundException;
+import br.com.mariorusso.tenancy.domain.Pagina;
 
-import java.util.List;
+
 
 public class BuscaFuncionarioImpl implements BuscaFuncionarioUseCase {
 
@@ -16,19 +16,9 @@ public class BuscaFuncionarioImpl implements BuscaFuncionarioUseCase {
     }
 
     @Override
-    public List<Funcionario> buscaPorEmpresa(Long empresaId) {
+    public Pagina<Funcionario> buscaPorEmpresa(Long empresaId, int pagina, int tamanho) {
 
-        List<Funcionario> funcionarios = repository.buscaPorEmpresa(empresaId);
-
-        if (funcionarios == null || funcionarios.isEmpty())
-            throw new NotFoundException("usuario não encontrado");
-
-        boolean funcionarioDaEmpresa = funcionarios
-                .stream().allMatch(
-                        funcionario -> funcionario.getEmpresaId().equals(empresaId));
-
-        if (funcionarioDaEmpresa == false)
-            throw new IllegalArgumentException("Erro ao lista usuário");
+        Pagina<Funcionario> funcionarios = repository.buscaPorEmpresaPorPagina(empresaId, pagina,tamanho);
 
         return funcionarios;
     }

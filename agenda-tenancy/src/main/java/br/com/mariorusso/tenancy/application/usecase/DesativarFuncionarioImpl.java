@@ -3,10 +3,10 @@ package br.com.mariorusso.tenancy.application.usecase;
 import br.com.mariorusso.tenancy.application.ports.in.DesativarFuncionarioUsecase;
 import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
 import br.com.mariorusso.tenancy.domain.Funcionario;
-import br.com.mariorusso.tenancy.domain.exception.FuncionarioNotEmpresa;
-import br.com.mariorusso.tenancy.domain.exception.FuncionarioNotFound;
+import br.com.mariorusso.tenancy.domain.exception.FuncionarioDeOutraEmpresaException;
+import br.com.mariorusso.tenancy.domain.exception.FuncionarioNotFoundException;
+import jakarta.transaction.Transactional;
 
-import java.util.Objects;
 
 public class DesativarFuncionarioImpl implements DesativarFuncionarioUsecase {
 
@@ -18,13 +18,14 @@ public class DesativarFuncionarioImpl implements DesativarFuncionarioUsecase {
     }
 
     @Override
+    @Transactional
     public void desativar(Long id, Long empresaId) {
-        Funcionario funcionario = funcionarioRepository.buscaPorId(id);
-        if (funcionario == null)
-            throw new FuncionarioNotFound("Funcionário Não encontrado", 400);
 
-        if (!Objects.equals(funcionario.getEmpresaId(), empresaId))
-            throw new FuncionarioNotEmpresa("Funcionário não pertence a empresa", 403);
+        Funcionario funcionario = funcionarioRepository.buscaPorId(id)
+                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário não encontrado"));
+
+        if (!funcionario.getEmpresaId().equals(empresaId))
+            throw new FuncionarioDeOutraEmpresaException("Funcionário não pertence a empresa");
 
         funcionario.desativar();
 

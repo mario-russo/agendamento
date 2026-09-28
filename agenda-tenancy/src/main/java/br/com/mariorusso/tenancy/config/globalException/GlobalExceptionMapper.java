@@ -6,6 +6,8 @@ import jakarta.ws.rs.ext.Provider;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
 
+
+//classe esta em desuso
 @Provider
 public class GlobalExceptionMapper {
     private static final Logger LOG = Logger.getLogger(GlobalExceptionMapper.class);

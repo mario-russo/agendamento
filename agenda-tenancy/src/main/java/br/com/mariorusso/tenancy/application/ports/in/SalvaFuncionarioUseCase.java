@@ -1,7 +1,7 @@
 package br.com.mariorusso.tenancy.application.ports.in;
 
-import br.com.mariorusso.tenancy.application.dtos.request.FuncionarioRequestDto;
+import br.com.mariorusso.tenancy.application.dtos.request.SalvaFuncionarioCommand;
 
 public interface SalvaFuncionarioUseCase {
-    void execute(FuncionarioRequestDto dto);
+    void execute(SalvaFuncionarioCommand dto);
 }

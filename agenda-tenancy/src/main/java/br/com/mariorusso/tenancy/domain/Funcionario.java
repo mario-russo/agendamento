@@ -21,6 +21,13 @@ public class Funcionario {
         this.active = active;
         this.empresaId = empresa;
     }
+    public Funcionario(String nome, String phone, Long empresa) {
+
+        this.name = nome.trim();
+        this.telefone = new Telefone(phone);
+        this.active = true;
+        this.empresaId = empresa;
+    }
     public Long getId() {
         return id;
     }

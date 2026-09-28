@@ -4,38 +4,30 @@ package br.com.mariorusso.tenancy.adapters.outbound.repository;
 import br.com.mariorusso.tenancy.adapters.outbound.entity.FuncionarioEntity;
 import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
 import br.com.mariorusso.tenancy.domain.Funcionario;
+import br.com.mariorusso.tenancy.domain.Pagina;
+import br.com.mariorusso.tenancy.domain.exception.FuncionarioNotFoundException;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
+import java.util.Optional;
+
+import static io.quarkus.hibernate.orm.panache.PanacheEntityBase.find;
 
 @ApplicationScoped
 public class FuncionarioRepositoryImpl implements FuncionarioRepository {
 
     @Override
-    public Funcionario buscaPorId(Long id) {
+    public Optional<Funcionario> buscaPorId(Long id) {
 
-        FuncionarioEntity entity = FuncionarioEntity.findById(id);
-
-        if (entity == null)
-            return null;
-
-        return entity.toDomain();
+        return FuncionarioEntity.<FuncionarioEntity>findByIdOptional(id)
+                .map(FuncionarioEntity::toDomain);
     }
 
     @Override
-    public List<Funcionario> buscaPorEmpresa(Long empresaId) {
-
-        List<FuncionarioEntity> entities = FuncionarioEntity
-                .list("empresaId = ?1 and active = true", empresaId);
-
-        return entities.stream()
-                .map(FuncionarioEntity::toDomain)
-                .toList();
-    }
-
-    @Override
-    public void cadastra(Funcionario funcionario) {
+    public void cadastrar(Funcionario funcionario) {
         FuncionarioEntity entity = FuncionarioEntity.fromDomain(funcionario);
 
         entity.persist();
@@ -44,14 +36,31 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
 
     @Override
     public void atualizar(Funcionario funcionario) {
-        FuncionarioEntity entity = FuncionarioEntity.findById(funcionario.getId());
+        FuncionarioEntity entity = FuncionarioEntity.<FuncionarioEntity>findByIdOptional(funcionario.getId())
+                .orElseThrow(() -> new FuncionarioNotFoundException("Funcionário não encontrado"));
 
-        if (entity != null) {
-            entity.name = funcionario.getName();
-            entity.telefone = funcionario.getTelefone().getPhone();
-            entity.active = funcionario.getActive();
-            entity.empresaId = funcionario.getEmpresaId();
+        entity.name = funcionario.getName();
+        entity.telefone = funcionario.getTelefone().getPhone();
+        entity.active = funcionario.getActive();
+        entity.empresaId = funcionario.getEmpresaId();
+        PanacheEntityBase.getEntityManager().merge(entity);
 
-        }
+    }
+
+    @Override
+    public Pagina<Funcionario> buscaPorEmpresaPorPagina(Long empresaId, int pagina, int tamanho) {
+        PanacheQuery<FuncionarioEntity> query = FuncionarioEntity.find("empresaId", empresaId);
+
+        query.page(Page.of(pagina, tamanho));
+
+        List<FuncionarioEntity> entidades = query.list();
+
+        long totalElementos = query.count();
+
+        List<Funcionario> funcionariosDoDominio = entidades.stream()
+                .map(FuncionarioEntity::toDomain)
+                .toList();
+
+        return new Pagina<>(funcionariosDoDominio, pagina, tamanho, totalElementos);
     }
 }

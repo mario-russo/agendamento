@@ -1,7 +1,7 @@
 package br.com.mariorusso.tenancy.adapters.outbound.repository;
 
 import br.com.mariorusso.tenancy.adapters.outbound.entity.UsuarioEntity;
-import br.com.mariorusso.tenancy.application.dtos.UsuarioRequest;
+import br.com.mariorusso.tenancy.application.command.UsuarioRequest;
 import br.com.mariorusso.tenancy.application.ports.out.UsuarioRepository;
 import br.com.mariorusso.tenancy.domain.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;

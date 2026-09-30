@@ -1,8 +1,8 @@
 package br.com.mariorusso.tenancy.adapters.input;
 
 
-import br.com.mariorusso.tenancy.application.dtos.request.AtualizaFuncionarioDto;
-import br.com.mariorusso.tenancy.application.dtos.request.SalvaFuncionarioCommand;
+import br.com.mariorusso.tenancy.application.command.request.AtualizaFuncionarioDto;
+import br.com.mariorusso.tenancy.application.command.request.SalvaFuncionarioCommand;
 import br.com.mariorusso.tenancy.application.ports.in.*;
 import br.com.mariorusso.tenancy.domain.Funcionario;
 import br.com.mariorusso.tenancy.domain.Pagina;

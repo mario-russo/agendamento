@@ -1,4 +1,4 @@
-package br.com.mariorusso.tenancy.application.dtos.request;
+package br.com.mariorusso.tenancy.application.command.request;
 
 import br.com.mariorusso.share.Endereco;
 import br.com.mariorusso.tenancy.domain.Empresa;

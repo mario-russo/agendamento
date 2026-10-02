@@ -2,9 +2,7 @@ package br.com.mariorusso.tenancy.adapters.input;
 
 
 import br.com.mariorusso.tenancy.application.command.request.AtualizaEmpresaCommand;
-import br.com.mariorusso.tenancy.application.command.request.EmpresaRequest;
 import br.com.mariorusso.tenancy.application.ports.in.AtualizaEmpresaUseCase;
-import br.com.mariorusso.tenancy.application.ports.out.EmpresaRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -19,8 +17,6 @@ import org.eclipse.microprofile.jwt.ClaimValue;
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmpresaResource {
 
-    @Inject
-    EmpresaRepository repository;
 
     @Inject
     AtualizaEmpresaUseCase atualizarEmpresa;
@@ -31,10 +27,9 @@ public class EmpresaResource {
 
 
 
-    @PUT
-    @Authenticated
+    @PATCH    @Authenticated
     public Response atualizaEmpresa( @Valid AtualizaEmpresaCommand request) {
         atualizarEmpresa.atualizar(empresaId.getValue(), request);
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 }

@@ -7,10 +7,13 @@ import br.com.mariorusso.tenancy.domain.valueobject.Telefone;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Empresa {
     private Long id;
+
+
     private String name;
     private Cnpj cnpj;
     private Telefone telefone;
@@ -136,5 +139,49 @@ public class Empresa {
 
     public Long getUsuarioId() {
         return usuarioId;
+    }
+
+    public void alteraName(String name) {
+        if (name == null || name.isBlank())
+            throw new IllegalArgumentException("Nome não pode ser vazio");
+        this.name = name.trim();
+        this.dateUpdate = LocalDateTime.now();
+    }
+
+    public void alteraCnpj(String cnpj) {
+        this.cnpj = new Cnpj(cnpj);
+        marcaAtualizacao();
+    }
+
+    public void alteraTelefone(String telefone) {
+        this.telefone = new Telefone(telefone);
+        marcaAtualizacao();
+    }
+
+    public void alteraEmail(String email) {
+        this.email = new Email(email);
+        marcaAtualizacao();
+    }
+
+    public void alteraEndereco(String logradouro, String municipio, String estado) {
+        this.endereco = new Endereco(logradouro, municipio, estado);
+        marcaAtualizacao();
+    }
+
+    private void marcaAtualizacao() {
+        this.dateUpdate = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Empresa)) return false;
+        Empresa that = (Empresa) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

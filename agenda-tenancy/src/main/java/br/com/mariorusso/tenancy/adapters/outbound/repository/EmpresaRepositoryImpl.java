@@ -2,14 +2,11 @@ package br.com.mariorusso.tenancy.adapters.outbound.repository;
 
 
 import br.com.mariorusso.tenancy.adapters.outbound.entity.EmpresaEntity;
-import br.com.mariorusso.tenancy.application.command.request.AtualizaEmpresaCommand;
-import br.com.mariorusso.tenancy.application.command.request.EmpresaRequest;
 import br.com.mariorusso.tenancy.application.ports.out.EmpresaRepository;
 import br.com.mariorusso.tenancy.domain.Empresa;
-import br.com.mariorusso.tenancy.domain.valueobject.Email;
+import br.com.mariorusso.tenancy.domain.exception.EmpresaNotFound;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.transaction.Transactional;
 
 import java.util.Optional;
 
@@ -25,8 +22,9 @@ public class EmpresaRepositoryImpl implements EmpresaRepository {
 
     @Override
     public void atualizar(Empresa empresa) {
+        EmpresaEntity entity = EmpresaEntity.<EmpresaEntity>findByIdOptional(empresa.getId())
+                .orElseThrow(() -> new EmpresaNotFound("Empresa não encontrada com o ID: " + empresa.getId()));
 
-        EmpresaEntity entity = EmpresaEntity.findById(empresa.getId());
 
         entity.name = empresa.getName();
         entity.cnpj = empresa.getCnpj().getValue();

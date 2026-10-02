@@ -4,6 +4,7 @@ import br.com.mariorusso.share.Endereco;
 import br.com.mariorusso.tenancy.domain.valueobject.Cnpj;
 import br.com.mariorusso.tenancy.domain.valueobject.Email;
 import br.com.mariorusso.tenancy.domain.valueobject.Telefone;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -189,6 +190,109 @@ class EmpresaTest {
             // Assert
             assertNotNull(empresa.getFuncionarios(), "A lista de funcionários reidratada como nula deve virar um conjunto vazio");
             assertTrue(empresa.getFuncionarios().isEmpty());
+        }
+    }
+    @Nested
+    @DisplayName("Cenários de Alteração de Dados")
+    class AlteracaoDados {
+
+        private Empresa empresa;
+
+        @BeforeEach
+        void setUp() {
+            empresa = new Empresa(NOME_VALIDO, CNPJ_VALIDO, EMAIL_VALIDO, TELEFONE_VALIDO, enderecoMock, USUARIO_ID);
+        }
+
+        // ---------- alteraName ----------
+
+        @Test
+        @DisplayName("Deve alterar o nome com sucesso")
+        void deveAlterarNomeComSucesso() {
+            empresa.alteraName("Novo Nome LTDA");
+
+            assertEquals("Novo Nome LTDA", empresa.getName());
+        }
+
+        @Test
+        @DisplayName("Deve aplicar trim() no nome ao alterar")
+        void deveAplicarTrimAoAlterarNome() {
+            empresa.alteraName("   Nome Espaçado   ");
+
+            assertEquals("Nome Espaçado", empresa.getName());
+        }
+
+        @ParameterizedTest
+        @NullAndEmptySource
+        @ValueSource(strings = {" ", "   "})
+        @DisplayName("Deve lançar exceção ao alterar nome para nulo, vazio ou em branco")
+        void deveLancarExcecaoAoAlterarNomeInvalido(String nomeInvalido) {
+            IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                    empresa.alteraName(nomeInvalido)
+            );
+            assertEquals("Nome não pode ser vazio", ex.getMessage());
+        }
+
+        // ---------- alteraCnpj ----------
+
+        @Test
+        @DisplayName("Deve alterar o CNPJ com sucesso")
+        void deveAlterarCnpjComSucesso() {
+            String novoCnpj = "11222333000181"; // outro CNPJ válido
+
+            empresa.alteraCnpj(novoCnpj);
+
+            assertEquals(novoCnpj, empresa.getCnpj().getValue());
+        }
+
+        // ---------- alteraEmail ----------
+
+        @Test
+        @DisplayName("Deve alterar o e-mail com sucesso")
+        void deveAlterarEmailComSucesso() {
+            String novoEmail = "novo@mariorusso.com";
+
+            empresa.alteraEmail(novoEmail);
+
+            assertEquals(novoEmail, empresa.getEmail().getValue());
+        }
+
+        // ---------- alteraTelefone ----------
+
+        @Test
+        @DisplayName("Deve alterar o telefone com sucesso")
+        void deveAlterarTelefoneComSucesso() {
+            String novoTelefone = "11977777777";
+
+            empresa.alteraTelefone(novoTelefone);
+
+            assertEquals(novoTelefone, empresa.getTelefone().getPhone());
+        }
+
+        // ---------- alteraEndereco ----------
+
+        @Test
+        @DisplayName("Deve alterar o endereço com sucesso")
+        void deveAlterarEnderecoComSucesso() {
+            empresa.alteraEndereco("Rua Nova", "São Paulo", "SP");
+
+            Endereco novoEndereco = empresa.getEndereco();
+            assertEquals("Rua Nova", novoEndereco.getEndereco());
+            assertEquals("São Paulo", novoEndereco.getMunicipio());
+            assertEquals("SP", novoEndereco.getEstado());
+        }
+
+        // ---------- dateUpdate ----------
+
+        @Test
+        @DisplayName("Deve atualizar dateUpdate ao alterar qualquer campo")
+        void deveAtualizarDateUpdateAoAlterar() throws InterruptedException {
+            LocalDateTime antes = empresa.getDateUpdate();
+            Thread.sleep(10); // garante que o timestamp mude
+
+            empresa.alteraName("Nome Novo");
+
+            assertTrue(empresa.getDateUpdate().isAfter(antes),
+                    "dateUpdate deve ser atualizado após alteração");
         }
     }
 }

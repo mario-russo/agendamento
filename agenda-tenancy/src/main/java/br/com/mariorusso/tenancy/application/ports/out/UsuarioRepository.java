@@ -1,6 +1,6 @@
 package br.com.mariorusso.tenancy.application.ports.out;
 
-import br.com.mariorusso.tenancy.application.dtos.UsuarioRequest;
+import br.com.mariorusso.tenancy.application.command.UsuarioRequest;
 import br.com.mariorusso.tenancy.domain.Usuario;
 
 public interface UsuarioRepository {

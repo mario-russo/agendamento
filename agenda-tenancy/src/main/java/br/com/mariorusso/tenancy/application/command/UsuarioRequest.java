@@ -1,4 +1,4 @@
-package br.com.mariorusso.tenancy.application.dtos;
+package br.com.mariorusso.tenancy.application.command;
 
 import br.com.mariorusso.tenancy.domain.Usuario;
 import br.com.mariorusso.tenancy.domain.valueobject.RoleEnum;

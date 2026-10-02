@@ -1,6 +1,6 @@
 package br.com.mariorusso.tenancy.application.ports.in;
 
-import br.com.mariorusso.tenancy.application.dtos.UsuarioRequest;
+import br.com.mariorusso.tenancy.application.command.UsuarioRequest;
 
 public interface RegistrarUsuarioUseCase {
 

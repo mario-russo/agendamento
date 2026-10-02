@@ -1,4 +1,4 @@
-package br.com.mariorusso.tenancy.application.dtos.request;
+package br.com.mariorusso.tenancy.application.command.request;
 
 public record AtualizaFuncionarioDto(
         String nome,

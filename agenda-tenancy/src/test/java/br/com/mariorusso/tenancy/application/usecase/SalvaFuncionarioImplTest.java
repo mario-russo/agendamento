@@ -1,6 +1,6 @@
 package br.com.mariorusso.tenancy.application.usecase;
 
-import br.com.mariorusso.tenancy.application.dtos.request.SalvaFuncionarioCommand;
+import br.com.mariorusso.tenancy.application.command.request.SalvaFuncionarioCommand;
 import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
 import br.com.mariorusso.tenancy.domain.Funcionario;
 import org.junit.jupiter.api.BeforeEach;

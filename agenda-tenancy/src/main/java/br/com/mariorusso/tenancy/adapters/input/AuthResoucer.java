@@ -1,9 +1,8 @@
 package br.com.mariorusso.tenancy.adapters.input;
 
-import br.com.mariorusso.tenancy.adapters.outbound.entity.UsuarioEntity;
-import br.com.mariorusso.tenancy.application.dtos.LoginRequest;
-import br.com.mariorusso.tenancy.application.dtos.Token;
-import br.com.mariorusso.tenancy.application.dtos.UsuarioRequest;
+import br.com.mariorusso.tenancy.application.command.LoginRequest;
+import br.com.mariorusso.tenancy.application.command.Token;
+import br.com.mariorusso.tenancy.application.command.UsuarioRequest;
 import br.com.mariorusso.tenancy.application.ports.in.LoginUseCase;
 import br.com.mariorusso.tenancy.application.ports.in.RegistrarUsuarioUseCase;
 import jakarta.transaction.Transactional;

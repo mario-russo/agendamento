@@ -1,0 +1,79 @@
+services:
+  # ============================
+  # FRONTEND (Nginx + Vue + proxy para Quarkus)
+  # ============================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-vue
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # ============================
+  # BACKEND QUARKUS
+  # ============================
+  backend:
+    build:
+      context: ./agenda-tenancy
+      dockerfile: Dockerfile
+    container_name: quarkus-backend
+    environment:
+      # ---------- BANCO DE DADOS ----------
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/meubanco
+      QUARKUS_DATASOURCE_USERNAME: meuuser
+      QUARKUS_DATASOURCE_PASSWORD: minhasenha
+
+      # ---------- JWT ----------
+      # Descomente e ajuste conforme seu projeto
+      # SMALLRYE_JWT_SIGN_KEY_LOCATION: /deployments/privateKey.pem
+      # MP_JWT_VERIFY_PUBLICKEY_LOCATION: /deployments/publicKey.pem
+      # MP_JWT_VERIFY_ISSUER: https://meuapp.com
+
+      # ---------- OUTRAS VARIÁVEIS ----------
+      # Adicione aqui as variáveis que seu Quarkus usa
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # ============================
+  # POSTGRESQL
+  # ============================
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: meubanco
+      POSTGRES_USER: meuuser
+      POSTGRES_PASSWORD: minhasenha
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meuuser -d meubanco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+# ============================
+# VOLUMES
+# ============================
+volumes:
+  postgres-data:
+
+# ============================
+# REDE
+# ============================
+networks:
+  app-network:
+    driver: bridge

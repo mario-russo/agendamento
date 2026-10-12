@@ -1,7 +1,10 @@
 package br.com.mariorusso.tenancy.domain;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import java.util.List;
 
+@RegisterForReflection
 public class Pagina <T>{
     private final List<T> conteudo;
     private final int paginaAtual;

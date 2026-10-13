@@ -1,14 +1,7 @@
 # ============================================
 # IDE e Editores
 # ============================================
-# ============================================
-# Forçar inclusão de arquivos essenciais para o CI/CD
-# ============================================
-!frontend/yarn.lock
-!frontend/package-lock.json
-!agenda-tenancy/mvnw
-!agenda-tenancy/mvnw.cmd
-!.github/
+
 # IntelliJ IDEA
 .idea/
 *.iml
@@ -229,7 +222,6 @@ coverage/
 test-report/
 jacoco.exec
 *.report
-*.html
 
 # ============================================
 # Miscellaneous
@@ -446,3 +438,14 @@ services/service-client/.quarkus/
 # Service Notification specific
 services/service-notification/target/
 services/service-notification/.quarkus/
+
+
+# ============================================
+# FORÇAR INCLUSÃO (SEMPRE NO FINAL DO ARQUIVO)
+# ============================================
+!frontend/yarn.lock
+!frontend/package-lock.json
+!agenda-tenancy/mvnw
+!agenda-tenancy/mvnw.cmd
+!frontend/index.html
+!.github/

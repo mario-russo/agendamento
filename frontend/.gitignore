@@ -1,7 +1,6 @@
 # ============================================
 # IDE e Editores
 # ============================================
-
 # ============================================
 # Forçar inclusão de arquivos essenciais para o CI/CD
 # ============================================
@@ -10,8 +9,6 @@
 !agenda-tenancy/mvnw
 !agenda-tenancy/mvnw.cmd
 !.github/
-
-
 # IntelliJ IDEA
 .idea/
 *.iml
@@ -316,9 +313,9 @@ docs/api/
 # ============================================
 
 # NPM
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+!package-lock.json
+!yarn.lock
+!pnpm-lock.yaml
 
 # Maven
 .m2/

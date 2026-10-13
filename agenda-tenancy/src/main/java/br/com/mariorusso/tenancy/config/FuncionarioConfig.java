@@ -1,14 +1,8 @@
 package br.com.mariorusso.tenancy.config;
 
-import br.com.mariorusso.tenancy.application.ports.in.AtualizaFuncionarioUseCase;
-import br.com.mariorusso.tenancy.application.ports.in.BuscaFuncionarioUseCase;
-import br.com.mariorusso.tenancy.application.ports.in.DesativarFuncionarioUsecase;
-import br.com.mariorusso.tenancy.application.ports.in.SalvaFuncionarioUseCase;
+import br.com.mariorusso.tenancy.application.ports.in.*;
 import br.com.mariorusso.tenancy.application.ports.out.FuncionarioRepository;
-import br.com.mariorusso.tenancy.application.usecase.AtualizaFuncionarioImpl;
-import br.com.mariorusso.tenancy.application.usecase.BuscaFuncionarioImpl;
-import br.com.mariorusso.tenancy.application.usecase.DesativarFuncionarioImpl;
-import br.com.mariorusso.tenancy.application.usecase.SalvaFuncionarioImpl;
+import br.com.mariorusso.tenancy.application.usecase.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -42,5 +36,11 @@ public class FuncionarioConfig {
     @ApplicationScoped
     public DesativarFuncionarioUsecase desativarFuncionarioUsecase (){
         return  new DesativarFuncionarioImpl(repository);
+    }
+
+    @Produces
+    @ApplicationScoped
+    public BuscaFuncionarioPorIdUseCase buscaFuncionarioPorIdUseCase (){
+        return  new BuscaFuncionarioPorIdImpl(repository);
     }
 }

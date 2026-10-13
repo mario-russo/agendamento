@@ -1,5 +1,22 @@
-*
+
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*
 !target/quarkus-app/*
+
+# Ignorar artefatos de build
+target/
+
+# Ignorar IDE
+.idea/
+*.iml
+.vscode/
+
+# Ignorar git
+.git/
+.gitignore
+
+# Ignorar arquivos locais
+secrets/
+.env
+README.md

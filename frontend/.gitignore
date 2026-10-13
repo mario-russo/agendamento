@@ -2,6 +2,16 @@
 # IDE e Editores
 # ============================================
 
+# ============================================
+# Forçar inclusão de arquivos essenciais para o CI/CD
+# ============================================
+!frontend/yarn.lock
+!frontend/package-lock.json
+!agenda-tenancy/mvnw
+!agenda-tenancy/mvnw.cmd
+!.github/
+
+
 # IntelliJ IDEA
 .idea/
 *.iml

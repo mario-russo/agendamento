@@ -72,8 +72,8 @@ jobs:
       - name: Build and push Backend image
         uses: docker/build-push-action@v6
         with:
-          context: ./agenda-tenancy/dockerfile
-          file: dockerfile # Caminho padrão do Dockerfile do Quarkus
+          context: ./agenda-tenancy
+          file: ./agenda-tenancy/dockerfile # Caminho padrão do Dockerfile do Quarkus
           push: true
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}

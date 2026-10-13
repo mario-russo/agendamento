@@ -9,8 +9,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  JAVA_VERSION: '21' 
-  AGENDA_TENANCY: 'agenda-tenancy'
+  JAVA_VERSION: '17' # Altere para a versão do seu Quarkus
 
 jobs:
   # 1. Job de Testes
@@ -27,19 +26,23 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
           cache: 'maven'
-          cache-dependency-path: './agenda-tenancy/pom.xml' # Ajuste o caminho se o pom.xml estiver em outro lugar
+          cache-dependency-path: './agenda-tenancy/pom.xml'
 
       - name: Run Backend Tests (Quarkus)
         run: |
-          echo "Executando testes do Quarkus..."
-          cd agenda-tenancy # Entra na pasta do seu backend
-          ./mvnw test # Usa o Maven Wrapper (ou 'mvn test' se não usar wrapper)
+          echo "Executando testes do Quarkus em agenda-tenancy..."
+          cd agenda-tenancy
+          ./mvnw test 
 
+      - name: Run Frontend Tests
+        run: |
+          echo "Executando testes do Front-end..."
+          # cd frontend && npm test -- --watchAll=false
 
-  # 2. Job de Build e Push para o GHCR
+  # 2. Job de Build (Valida no PR e envia no Merge)
   build-and-push:
     needs: test
-    if: github.event_name == 'push'
+    # Removido o 'if' daqui para permitir que o job rode também em Pull Requests!
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -59,12 +62,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- BACKEND ---
+      # --- BACKEND (agenda-tenancy) ---
       - name: Extract metadata for Backend
         id: meta-backend
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{env.AGENDA_TENANCY}}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
             type=ref,event=branch
             type=sha,format=short
@@ -73,8 +76,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./agenda-tenancy
-          file: ./agenda-tenancy/dockerfile # Caminho padrão do Dockerfile do Quarkus
-          push: true
+          file: ./agenda-tenancy/dockerfile
+          # SÓ FAZ O PUSH SE FOR UM COMMIT DIRETO OU MERGE CONCLUÍDO
+          push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
           cache-from: type=gha
@@ -94,8 +98,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
-          file: ./frontend/dockerfile 
-          push: true
+          file: ./frontend/dockerfile
+          # SÓ FAZ O PUSH SE FOR UM COMMIT DIRETO OU MERGE CONCLUÍDO
+          push: ${{ github.event_name == 'push' }}
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
           cache-from: type=gha

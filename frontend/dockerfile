@@ -1,12 +1,22 @@
 # ============================================
 # Stage 1: Build do Vue
 # ============================================
-FROM node:20-alpine AS build-stage
+# 1. Mudança para -slim para melhor compatibilidade e estabilidade de rede
+FROM node:lts-slim AS build-stage
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+
+# 2. Copia arquivos de dependência
+COPY package.json yarn.lock ./
+
+# 3. Instala ignorando os scripts pós-instalação temporariamente
+RUN yarn install --frozen-lockfile --ignore-scripts
+
+# 4. Copia TODO o resto do projeto (agora o Quasar terá acesso ao quasar.config.js)
 COPY . .
-RUN npm run build
+
+# 5. Executa manualmente o prepare (agora com arquivos) e faz o build
+RUN npx quasar prepare
+RUN yarn build
 
 # ============================================
 # Stage 2: Nginx servindo o Vue + proxy

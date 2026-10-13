@@ -9,7 +9,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  JAVA_VERSION: '17' # Altere para a versão do seu Quarkus
+  JAVA_VERSION: '21'
 
 jobs:
   # 1. Job de Testes

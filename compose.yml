@@ -1,0 +1,25 @@
+networks:
+  # Rede isolada. O frontend não fala com o banco diretamente, apenas com o backend.
+  app-network:
+    driver: bridge
+
+services:
+  agenda-tenancy:
+    build:
+      context: ./agenda-tenancy
+      file: dockerfile
+    networks:
+      - app-network
+    secrets:
+      - db_password # O Quarkus vai ler este secret em /run/secrets/db_password
+
+  frontend:
+    build:
+      context: ./frontend
+      file: Dockerfile
+    networks:
+      - app-network
+
+secrets:
+  db_password:
+    file: ${DB_PASSWORD_FILE} # Dinâmico: muda dependendo do ambiente

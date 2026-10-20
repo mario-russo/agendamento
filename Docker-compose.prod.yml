@@ -3,7 +3,7 @@ services:
   # FRONTEND (Nginx + Vue + proxy para Quarkus)
   # ============================
   frontend:
-    image: ghcr.io/mario-russo/agendamento-frontend:sha-93ad248
+    image: ghcr.io/mario-russo/agendamento-frontend:latest
     container_name: nginx-vue
     ports:
       - "80:80"
@@ -17,7 +17,7 @@ services:
   # BACKEND QUARKUS
   # ============================
   backend:
-    image: ghcr.io/mario-russo/agendamento-agenda-tenancy:sha-69d4696
+    image: ghcr.io/mario-russo/agendamento-backend:latest
     container_name: quarkus-backend
     environment:
       # ---------- BANCO DE DADOS ----------

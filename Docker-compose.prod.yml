@@ -21,10 +21,15 @@ services:
     container_name: quarkus-backend
     environment:
       # ---------- BANCO DE DADOS ----------
-      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/meubanco
-      QUARKUS_DATASOURCE_USERNAME: meuuser
-      QUARKUS_DATASOURCE_PASSWORD: minhasenha
+      DB_URL: jdbc:postgresql://postgres:5432/meubanco
+      DB_USERNAME: meuuser
+      DB_PASSWORD: minhasenha
+      DB_KIND: postgresql
+      
+      QUARKUS_HTTP_HOST: 0.0.0.0
+      QUARKUS_HTTP_PORT: 8080
 
+      # FRONTEND_URL: frontend
       # ---------- JWT ----------
       # Descomente e ajuste conforme seu projeto
       # SMALLRYE_JWT_SIGN_KEY_LOCATION: /deployments/privateKey.pem

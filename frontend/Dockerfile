@@ -6,8 +6,9 @@ FROM node:lts-slim AS build-stage
 WORKDIR /app
 
 
-# Ativa o Corepack para disponibilizar o Yarn automaticamente
-RUN corepack enable
+
+# Instala o Yarn globalmente usando o npm nativo da imagem
+RUN npm install -g yarn
 
 # 2. Copia arquivos de dependência
 COPY package.json yarn.lock ./

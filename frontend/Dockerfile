@@ -5,6 +5,10 @@
 FROM node:lts-slim AS build-stage
 WORKDIR /app
 
+
+# Ativa o Corepack para disponibilizar o Yarn automaticamente
+RUN corepack enable
+
 # 2. Copia arquivos de dependência
 COPY package.json yarn.lock ./
 

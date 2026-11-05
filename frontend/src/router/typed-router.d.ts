@@ -116,6 +116,13 @@ declare module 'vue-router/auto-routes' {
       { path: ParamValue<false> },
       | never
     >,
+    '/auth/cadastro': RouteRecordInfo<
+      '/auth/cadastro',
+      '/auth/cadastro',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/auth/login': RouteRecordInfo<
       '/auth/login',
       '/auth/login',
@@ -232,6 +239,14 @@ declare module 'vue-router/auto-routes' {
         | never
       pathParamNames:
         | 'path'
+    }
+    'src/pages/auth/cadastro.vue': {
+      routes:
+        | '/auth/cadastro'
+      views:
+        | never
+      pathParamNames:
+        | never
     }
     'src/pages/auth/login.vue': {
       routes:

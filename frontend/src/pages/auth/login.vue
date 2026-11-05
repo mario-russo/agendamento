@@ -82,7 +82,7 @@ const handleLogin = async () => {
 
         if (data.status == 200) {
             authStore.setTokens(data.data)
-            await router.push("/")
+            await router.push("/dashboard")
         }
 
     } catch (error: any) {
